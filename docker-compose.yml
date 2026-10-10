@@ -1,0 +1,33 @@
+# One command:  docker compose up --build
+#   Sign in / register  http://localhost:3000/login
+# Works with no configuration (offline reader for text PDFs; the sign-in page then asks you
+# to create the admin). Copy backend/.env.example to backend/.env to set the admin account
+# (ADMIN_EMAIL / ADMIN_PASSWORD) and an AI model (LLM_PROVIDER + its API key).
+services:
+  backend:
+    build: ./backend
+    env_file:
+      - path: ./backend/.env
+        required: false      # no .env -> offline reader, admin created on the setup screen
+    environment:
+      AUDIT_DB_PATH: /app/data/audit.db
+    volumes:
+      - ledger-data:/app/data          # accounts, audit log + uploaded invoice files survive restarts
+    ports:
+      - "8000:8000"                    # optional: direct API access / docs at /docs
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        BACKEND_URL: http://backend:8000
+    ports:
+      - "3000:3000"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  ledger-data:
