@@ -7,10 +7,10 @@ rate for, a category the policy does not cover). Auditors clear or reject, and e
 money went.
 
 ## Quick start (no API key needed)
-Repository: https://github.com/RizvanVeliyev/invoice-compliance-auditor (there is no hosted demo; run it locally).
+Repository: https://github.com/ShahriyarHuseynli11/invoice-compliance-auditor (there is no hosted demo; run it locally).
 
 ```bash
-git clone https://github.com/RizvanVeliyev/invoice-compliance-auditor.git
+git clone https://github.com/ShahriyarHuseynli11/invoice-compliance-auditor.git
 cd invoice-compliance-auditor/backend
 python -m venv venv && venv\Scripts\activate        # macOS / Linux: source venv/bin/activate
 pip install -r requirements.txt
